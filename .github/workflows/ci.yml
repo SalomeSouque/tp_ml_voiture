@@ -7,94 +7,69 @@ on:
     branches: [main, develop]
 
 jobs:
+
   # Job 1 : Lint & Format
   lint:
-    name: Lint & Format
     runs-on: ubuntu-latest
     steps:
-      # Étape 1 : Checkout
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
-      # TODO: Installer uv
-      - name: Set up uv
-        uses: astral-sh/setup-uv@v4
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
         with:
           enable-cache: true
-          cache-dependency-glob: "uv.lock"
 
-      # TODO: Installer les dépendances
-      - name: Install dependencies
-        run: uv sync
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.13'
 
-      # TODO: Exécuter ruff check
-      - name: Run ruff lint
-        run: uv run ruff check .
+      - run: uv sync
 
-      # TODO: Vérifier le formatage
-      - name: Check code formatting
-        run: uv run ruff format --check .
+      - run: uv run ruff check .
+      - run: uv run ruff format --check .
 
   # Job 2 : Type Check
   typecheck:
-    name: Type Check
     runs-on: ubuntu-latest
     steps:
-      # Checkout 
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
-      # TODO: Installer uv
-      - name: Set up uv
-        uses: astral-sh/setup-uv@v4
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
         with:
           enable-cache: true
-          cache-dependency-glob: "uv.lock"
 
-      # Installer les dépendances
-      - name: Install dependencies
-        run: uv sync
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.13'
 
-      # TODO: Exécuter mypy
-      - name: Run mypy
-        run: uv run mypy app/
+      - run: uv sync
+      - run: uv run mypy app/
 
   # Job 3 : Security Scan
   security:
-    name: Security Scan
     runs-on: ubuntu-latest
     steps:
-      # Checkout 
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
-      # TODO: Installer uv
-      - name: Set up uv
-        uses: astral-sh/setup-uv@v4
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
         with:
           enable-cache: true
-          cache-dependency-glob: "uv.lock"
 
-      # Installer les dépendances
-      - name: Install dependencies
-        run: uv sync
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.13'
 
-
-      # TODO: Bandit (static analysis)
-      - name: Run Bandit
-        run: uv run bandit -r app/
-
-      # TODO: Safety (check dependencies vulnerabilities)
-      - name: Run Safety
-        run: uv run safety check
+      - run: uv sync
+      - run: uv run bandit -r app/
+      - run: uv run safety check
 
   # Job 4 : Tests
   tests:
-    name: Run Tests
     runs-on: ubuntu-latest
 
-    # TODO: Ajouter un service PostgreSQL
-    # Indice : https://docs.github.com/en/actions/using-containerized-services
     services:
       postgres:
         image: postgres:15
@@ -110,27 +85,20 @@ jobs:
           - 5432:5432
 
     steps:
-      # Checkout 
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
-      # TODO: Installer uv
-      - name: Set up uv
-        uses: astral-sh/setup-uv@v4
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
         with:
           enable-cache: true
-          cache-dependency-glob: "uv.lock"
-          
-      # Installer les dépendances
-      - name: Install dependencies
-        run: uv sync
 
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.13'
 
-      # TODO: Run tests with coverage
-      - name: Run tests
-        run: uv run pytest --cov=app --cov-report=term --cov-report=xml
+      - run: uv sync
+      - run: uv run pytest --cov=app --cov-report=term --cov-report=xml
 
-      # TODO: Upload coverage to Codecov (optionnel)
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v4
         with:

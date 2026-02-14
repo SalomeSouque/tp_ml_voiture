@@ -4,7 +4,6 @@ from datetime import UTC, datetime
 from sqlmodel import Field, SQLModel
 
 
-
 class AccidentPrediction(SQLModel, table=True):
     __tablename__ = "prediction_requete"
     # Bloc identification

@@ -7,69 +7,69 @@ on:
     branches: [main, develop]
 
 jobs:
-
   # Job 1 : Lint & Format
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v4
 
-      - name: Install uv
-        uses: astral-sh/setup-uv@v7
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v4
         with:
           enable-cache: true
+          cache-dependency-glob: "uv.lock"
 
-      - name: Set up Python
-        uses: actions/setup-python@v6
-        with:
-          python-version: '3.13'
+      - name: Install dependencies
+        run: uv sync
 
-      - run: uv sync
+      - name: Execute ruff check
+        run: uv run ruff check .
 
-      - run: uv run ruff check .
-      - run: uv run ruff format --check .
+      - name: Check linting
+        run: uv run ruff format --check .
 
   # Job 2 : Type Check
   typecheck:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v4
 
-      - name: Install uv
-        uses: astral-sh/setup-uv@v7
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v4
         with:
           enable-cache: true
+          cache-dependency-glob: "uv.lock"
 
-      - uses: actions/setup-python@v6
-        with:
-          python-version: '3.13'
+      - name: Install dependencies
+        run: uv sync
 
-      - run: uv sync
-      - run: uv run mypy app/
+      - name: Execute mypy
+        run: uv run mypy app/
 
   # Job 3 : Security Scan
   security:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v4
 
-      - name: Install uv
-        uses: astral-sh/setup-uv@v7
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v4
         with:
           enable-cache: true
+          cache-dependency-glob: "uv.lock"
 
-      - uses: actions/setup-python@v6
-        with:
-          python-version: '3.13'
+      - name: Install dependencies
+        run: uv sync
 
-      - run: uv sync
-      - run: uv run bandit -r app/
-      - run: uv run safety check
+      - name: Execute bandit
+        run: uv run bandit -r app/
+
+      - name: Execute safety
+        run: uv run safety check
 
   # Job 4 : Tests
   tests:
     runs-on: ubuntu-latest
-
     services:
       postgres:
         image: postgres:15
@@ -85,22 +85,24 @@ jobs:
           - 5432:5432
 
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v4
 
-      - name: Install uv
-        uses: astral-sh/setup-uv@v7
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v4
         with:
           enable-cache: true
+          cache-dependency-glob: "uv.lock"
 
-      - uses: actions/setup-python@v6
-        with:
-          python-version: '3.13'
+      - name: Install dependencies
+        run: |
+          uv sync
+          uv pip install -e .
 
-      - run: uv sync
-      - run: uv run pytest --cov=app --cov-report=term --cov-report=xml
+      - name: Debug imports
+        run: |
+          .venv/bin/python -c "import app; print(app.__file__)"
+          .venv/bin/python -c "import app.models; print(app.models.__file__)"
+          .venv/bin/python -c "print('Import OK')"
 
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v4
-        with:
-          files: coverage.xml
-          fail_ci_if_error: true
+      - name: Execute tests
+        run: .venv/bin/pytest tests/

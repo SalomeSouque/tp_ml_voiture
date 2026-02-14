@@ -40,8 +40,7 @@ jobs:
           pip install mypy types-requests pandas-stubs
       - name: Run mypy
         run: |
-          cd backend
-          mypy --explicit-package-bases backend
+          python -m mypy backend
 
   security:
     runs-on: ubuntu-latest

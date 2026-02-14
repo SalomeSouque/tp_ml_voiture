@@ -30,7 +30,7 @@ def predict(
     result: dict[str, Any]
     result_dict: dict[str, float | int | None]
     success: bool | None
-    error_message: str | None
+    error_message: str | bool | None
     try:
         data = pd.DataFrame([accident.dict()])
         # Convertion en df

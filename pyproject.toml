@@ -1,13 +1,14 @@
 [tool.ruff]
 line-length = 88
 exclude = ["notebook/*"]
-select = ["E","W","F","I","B","C4","UP"]
+
+[tool.ruff.lint]
+select = ["E", "W", "F", "I", "B", "C4", "UP"]
 ignore = []
 
-per-file-ignores = [
-    "backend/routes/predict_route.py:B008",
-    "frontend/app.py:W291"
-]
+[tool.ruff.lint.per-file-ignores]
+"backend/routes/predict_route.py" = ["B008"]
+"frontend/app.py" = ["W291"]
 
 [tool.ruff.format]
 quote-style = "double"
@@ -21,7 +22,6 @@ disallow_untyped_defs = true
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-python_files = "test_*.py"
-python_functions = "test_*"
+python_files = ["test_*"]
+python_functions = ["test_*"]
 addopts = "--strict-markers --cov=app --cov-report=term-missing"
-

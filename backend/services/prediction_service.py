@@ -1,5 +1,5 @@
-from backend.engine import get_db
-from backend.models.model_db import AccidentPrediction
+from engine import get_db
+from models.model_db import AccidentPrediction
 
 
 # Fonction pour save mes données dans une base de données :

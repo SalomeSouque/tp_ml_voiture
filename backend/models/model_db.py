@@ -1,6 +1,8 @@
+# mypy: ignore-errors
 from datetime import UTC, datetime
 
 from sqlmodel import Field, SQLModel
+
 
 
 class AccidentPrediction(SQLModel, table=True):

@@ -1,13 +1,14 @@
-# from backend.models.model_db import AccidentPrediction
 import time
 
 import joblib
 import pandas as pd
-from engine import get_db
 from fastapi import APIRouter, Depends
+from sqlmodel import Session
+from typing import Any, Dict
+
+from backend.engine import get_db
 from backend.models.accident import Accident
 from backend.services.prediction_service import save_prediction
-from sqlmodel import Session
 
 router = APIRouter(tags=["predict"])
 # prefix="/predict",
@@ -19,9 +20,16 @@ model = joblib.load(MODEL_PATH)
     "/predict",
 )
 # Fonction qui va prédire :
-def predict(accident: Accident, db: Session = Depends(get_db)):
+def predict(accident: Accident,
+            db: Session = Depends(get_db),
+            )-> Dict[str, Any]:
     # Prend en paramètre les détail de l'accident ordonné grace à ma class Accident
     start = time.perf_counter()
+        # Types explicites pour mypy
+    result: Dict[str, Any]
+    result_dict: Dict[str, float | int | None]
+    success: bool
+    error_message: str | None
     try:
         data = pd.DataFrame([accident.dict()])
         # Convertion en df

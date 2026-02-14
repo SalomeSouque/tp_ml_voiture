@@ -21,5 +21,3 @@ class Accident(SQLModel):
     atm: int
     catr: int
     surf: int
-
-

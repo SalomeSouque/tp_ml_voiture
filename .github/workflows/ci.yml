@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  lint:
+    name: Lint & Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # TODO: Installer uv
+      # Indice : https://docs.astral.sh/uv/guides/integration/github/
+      - name: Install uv
+        run: |
+          curl -sSL https://install.astral.sh | bash
+          echo 'export PATH="$HOME/.uv/bin:$PATH"' >> $GITHUB_ENV
+          uv --version
+
+      # TODO: Installer les dépendances
+      - name: Install dependencies
+        run: uv sync
+
+      # TODO: Exécuter ruff check
+      - name: Run ruff lint
+        run: uv run ruff check .
+
+      # TODO: Vérifier le formatage
+      - name: Check code formatting
+        run: uv run ruff format --check .

@@ -1,0 +1,7 @@
+ruff
+mypy
+pytest
+pytest-cov
+bandit
+safety
+psycopg2-binary

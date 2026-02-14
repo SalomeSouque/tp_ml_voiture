@@ -5,8 +5,8 @@ import joblib
 import pandas as pd
 from engine import get_db
 from fastapi import APIRouter, Depends
-from models.accident import Accident
-from services.prediction_service import save_prediction
+from backend.models.accident import Accident
+from backend.services.prediction_service import save_prediction
 from sqlmodel import Session
 
 router = APIRouter(tags=["predict"])

@@ -1,4 +1,4 @@
-from engine import get_db
+from backend.engine import get_db
 from models.model_db import AccidentPrediction
 
 

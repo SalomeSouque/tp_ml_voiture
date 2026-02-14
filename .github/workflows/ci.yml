@@ -2,20 +2,19 @@ name: CI
 
 on:
   push:
-    branches:
-      - main
+    branches: [main, develop]
   pull_request:
-    branches:
-      - main
+    branches: [main, develop]
 
 jobs:
+  # Job 1 : Lint & Format
   lint:
-    name: Lint & Check
+    name: Lint & Format
     runs-on: ubuntu-latest
-
     steps:
+      # Étape 1 : Checkout
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       # TODO: Installer uv
       # Indice : https://docs.astral.sh/uv/guides/integration/github/
@@ -36,3 +35,91 @@ jobs:
       # TODO: Vérifier le formatage
       - name: Check code formatting
         run: uv run ruff format --check .
+
+  # Job 2 : Type Check
+  typecheck:
+    name: Type Check
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout + uv + dependencies
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Install uv
+        run: |
+          curl -sSL https://install.astral.sh | bash
+          echo 'export PATH="$HOME/.uv/bin:$PATH"' >> $GITHUB_ENV
+          uv --version
+      - name: Install dependencies
+        run: uv sync
+
+      # TODO: Exécuter mypy
+      - name: Run mypy
+        run: uv run mypy app/
+
+  # Job 3 : Security Scan
+  security:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout + uv + dependencies
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Install uv
+        run: |
+          curl -sSL https://install.astral.sh | bash
+          echo 'export PATH="$HOME/.uv/bin:$PATH"' >> $GITHUB_ENV
+          uv --version
+      - name: Install dependencies
+        run: uv sync
+
+      # TODO: Bandit (static analysis)
+      - name: Run Bandit
+        run: uv run bandit -r app/
+
+      # TODO: Safety (check dependencies vulnerabilities)
+      - name: Run Safety
+        run: uv run safety check
+
+  # Job 4 : Tests
+  tests:
+    name: Run Tests
+    runs-on: ubuntu-latest
+
+    # TODO: Ajouter un service PostgreSQL
+    # Indice : https://docs.github.com/en/actions/using-containerized-services
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: test_db
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
+    steps:
+      # Checkout + uv + dependencies
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Install uv
+        run: |
+          curl -sSL https://install.astral.sh | bash
+          echo 'export PATH="$HOME/.uv/bin:$PATH"' >> $GITHUB_ENV
+          uv --version
+      - name: Install dependencies
+        run: uv sync
+
+      # TODO: Run tests with coverage
+      - name: Run tests
+        run: uv run pytest --cov=app --cov-report=term --cov-report=xml
+
+      # TODO: Upload coverage to Codecov (optionnel)
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          files: coverage.xml
+          fail_ci_if_error: true

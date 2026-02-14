@@ -1,11 +1,12 @@
-from datetime import datetime, UTC
+from datetime import UTC, datetime
+
 from sqlmodel import Field, SQLModel
-from typing import Optional
+
 
 class AccidentPrediction(SQLModel, table=True):
         __tablename__ = "prediction_requete"
     #Bloc identification
-        id: Optional[int] = Field(default=None, primary_key=True)
+        id: int | None = Field(default=None, primary_key=True)
         created_at: datetime = Field(default_factory=lambda: datetime.now(UTC))
 
     #Bloc input user
@@ -26,13 +27,13 @@ class AccidentPrediction(SQLModel, table=True):
         surf: int
 
     #Bloc prédiction
-        prediction: Optional[int] = None
-        proba_blessure_legere: Optional[float] = None
-        proba_blessure_grave: Optional[float] = None
+        prediction: int | None = None
+        proba_blessure_legere: float | None = None
+        proba_blessure_grave: float | None = None
 
     #Bloc métadonnées
         success: bool
-        error_message: Optional[str] = None
+        error_message: str | None = None
         execution_time: float
 
 

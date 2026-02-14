@@ -1,10 +1,9 @@
-from fastapi import FastAPI
-from sqlmodel import SQLModel
 from contextlib import asynccontextmanager
 
 from engine import engine
+from fastapi import FastAPI
 from routes.predict_route import router
-
+from sqlmodel import SQLModel
 
 
 @asynccontextmanager
@@ -14,7 +13,7 @@ async def lifespan(fastapi_app: FastAPI):
         from engine import wait_for_db
         wait_for_db(retries=20, delay=1)
     except Exception as e:
-        raise RuntimeError(f"Database is not ready: {e}")
+        raise RuntimeError(f"Database is not ready: {e}")from e
 
     SQLModel.metadata.create_all(engine)
     yield

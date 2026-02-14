@@ -1,6 +1,7 @@
-import streamlit as st
-import requests
 import os
+
+import requests
+import streamlit as st
 
 # api docker :
 API_URL = os.getenv("API_URL", "http://api:8000")
@@ -26,7 +27,7 @@ accident = {
     'nuit': int(st.sidebar.checkbox("Accident de nuit")),
     'heure': int(st.sidebar.number_input("Heure (0-23)", 0, 23, 14)),
     # Pour les variables catégorielles :
-    'lum': int(st.sidebar.selectbox("Luminosité", 
+    'lum': int(st.sidebar.selectbox("Luminosité",
                                 options=[1,2,3,4,5],
                                 format_func=lambda x: {
                                     1: "Plein jour",
@@ -35,7 +36,7 @@ accident = {
                                     4: "Nuit avec éclairage public non allumé",
                                     5: "Nuit avec éclairage public allumé"
                                 }[x])),
-    
+
     'atm': int(st.sidebar.selectbox("Conditions atmosphériques",
                                 options=[1,2,3,4,5,6,7,8,9],
                                 format_func=lambda x: {
@@ -49,7 +50,7 @@ accident = {
                                     8: "Temps couvert",
                                     9: "Autre"
                                 }[x])),
-    
+
     'catr': int(st.sidebar.selectbox("Type de route",
                                 options=[1,2,3,4,5,6,7,9],
                                 format_func=lambda x: {
@@ -62,7 +63,7 @@ accident = {
                                     7: "Routes métropole urbaine",
                                     9: "Autre"
                                 }[x])),
-    
+
     'surf': int(st.sidebar.selectbox("État de la surface",
                                 options=[1,2,3,4,5,6,7,8,9],
                                 format_func=lambda x: {
@@ -82,23 +83,33 @@ accident = {
 
 # Bouton prédiction
 if st.button("Prédire la gravité"):
-    # Utiliser un try pour catch les erreurs: 
+    # Utiliser un try pour catch les erreurs:
     try :
         response = requests.post(f"{API_URL}/predict", json=accident)
-        response.raise_for_status() # Si code web est différent de 200 (donc ok) lève une erreur
-        
+        response.raise_for_status()
+        # Si code web est différent de 200 (donc ok) lève une erreur
+
         # Récupération du JSON
         result = response.json() #Convertion au format json
         pred = result['prediction']
         proba = result['probability']
-    
-        if pred == 0:
-            st.success(f"Prédiction : Blessure légère (probabilité {proba['blessure_legere']:.2f})")
-        else:
-            st.error(f"Prédiction : Accident grave (probabilité {proba['accident_grave']:.2f})")
 
-    except requests.exceptions.HTTPError as err : # Le module request gère les erreur http
-        # On affiche l'erreur 
+        if pred == 0:
+            st.success(
+                f"Prédiction : Blessure légère (probabilité {proba[
+                    'blessure_legere'
+                    ]:.2f})"
+                       )
+        else:
+            st.error(
+                f"Prédiction : Accident grave (probabilité {proba[
+                    'accident_grave'
+                    ]:.2f})"
+                     )
+
+    except requests.exceptions.HTTPError as err :
+        # Le module request gère les erreur http
+        # On affiche l'erreur
         st.error(f"Une erreur avec l'API est survenue : {err}")
         # On afficeh le contenu du JSON
         st.json(response.text)

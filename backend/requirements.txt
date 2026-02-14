@@ -1,0 +1,19 @@
+sqlmodel
+typing
+datetime
+fastapi
+pandas
+joblib
+psycopg2-binary
+uvicorn[standard]
+scikit-learn
+
+
+
+# Pour les notebook :
+# matplotlib>=3.5.0
+# numpy>=1.23.0
+# seaborn>=0.12.0
+# catboost>=1.1
+
+

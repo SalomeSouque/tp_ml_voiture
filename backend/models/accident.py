@@ -1,4 +1,4 @@
-from sqlmodel import Field, SQLModel
+from sqlmodel import SQLModel
 
 
 # Utilisation de pydantic et des class comme vu en alternance :

@@ -8,12 +8,12 @@
      La CI permet de résoudre les problèmes qui interviennent lors du véveloppement simultané de nombreuses partie/branche d'application potentiellement conflictuelles. Elle va notamment permettre d'effectuer de nombreux test automatisé unitaires et d'intégration necessaire à la bonne intégration du nouveau code dans l'ancien. Ainsi l'identification et la correction de bug est plus rapide est régulière.
 - Quels sont les principes clés ?
     Les tests automatisé, l'identification et la correction rapide et facilité des potentiel bug, et une plus grande régularité.
-- Donnez 3 exemples d'outils CI 
+- Donnez 3 exemples d'outils CI
     GitHub Action, GitLab CI/CD, Avure DevOps
 
 ### 2. Qu'est ce que le CD (Continuous Deployment/Delivery)
 - Différence entre Continuous Delivery et Continuous Deployment ?
-    Le continuous Delivery désigne le processus qui permets l'automatisation de la publication du code validé (via la CI) dans un référentiel où l'équipe d'exploitation pourra déployer rapidement l'application en production. Le Continuous Deployment lui va plus loin, il automatise en effet directement la mise en production du code validé où il pourra être utilisé par des clients. 
+    Le continuous Delivery désigne le processus qui permets l'automatisation de la publication du code validé (via la CI) dans un référentiel où l'équipe d'exploitation pourra déployer rapidement l'application en production. Le Continuous Deployment lui va plus loin, il automatise en effet directement la mise en production du code validé où il pourra être utilisé par des clients.
 - Quels sont les risques et bénéfices ?
     Le Continuous Delivery comporte moin de risque étant donné que le code passe par l'équipe d'exploitation ou les équipes métiers. Le code peut donc ête revérifié avant d'être mis en produciton, son avantage principale est qu'il pallie le manque de visibilité et de communication entre les équipe de dev et les équipes métiers. Cela permets aussi aux équipes d'exploitation de disposer d'un code base déployable à tout moment en production nécessitant le moin d'efforts possible.
     Le continuous Deployement permets quand à lui de décharger les équipes d'exploitation des processus manuels qui ralentissent la distribution des applications. En revanche aucun contrôle n'intervient à l'étape précédent la mise en production, ce type de déploiement nécessite donc un investissement inital conséquent pour permettre l'automatisation de beaucoup de test avant la mise en prod.
@@ -36,7 +36,7 @@
 - Gestion des dépendances (séparé par sections) : On peut séparer les dépendances par section et uv va pouvoir savoir qu'est ce qui est nécessaire ou non à télécharger selon le contexte
 - Build backend : pyproject.toml permet notamment le respect des stadards dans python, pour le build backend c'est le standard pep 517, en déclarant un build backend dans le pyproject.toml on simplifie la création de package et aussi plus tard l'insatalation du package
 
-### 3. Comment utiliser uv dans GitHub Actions 
+### 3. Comment utiliser uv dans GitHub Actions
 - Intallation : astral-sh/setup-uv :
                                   - name: Install uv
                                     uses: astral-sh/setup-uv@v7
@@ -47,20 +47,20 @@
 ## Mission 3 : Comprendre Semantic Release :
 ### 1. Qu'est-ce que le versionnage sémantique (SemVer) ?
 *Python Semantic Release permets d'automatiser les mécanisme de publication. Ainsi il permet de parser les commits et d'automatiquement choisir les numéros de version.*
-- Format MAJOR.MINOR.PATCH & quand bumper chaque niveau : 
-        PATCH : un commit de type `fix`, correction d'un bug dans le code 
-        MINOR : un commit de type `feat`, introduction d'une nouvelle fonctionalité dans le code 
+- Format MAJOR.MINOR.PATCH & quand bumper chaque niveau :
+        PATCH : un commit de type `fix`, correction d'un bug dans le code
+        MINOR : un commit de type `feat`, introduction d'une nouvelle fonctionalité dans le code
         MAJOR : un commit de type `BREAKING CHANGE`, introduit une rupture de compatibilité dans l'API.
 
 ### 2. Qu'est ce Conventional Commits ?
-- Format des messages : Le format des messages est important 
+- Format des messages : Le format des messages est important
 - Type de commits : git commit -m"<type>(<optional scope>): <description>" \
 - Impact sur le versionnage : selon le <type> ça impact un chiffre différent du versionnage : "MAJOR.MINOR.PATCH" --> "BREAKING CHANGE/!.feat.fix" --> 0.1.5
 
 ### 3. Comment python-semantic-release fonctionne ?
 - Configuration dans pyproject.toml : Par défaut il y a une configuration, mais on peut la modifier dans une table TOML `[tool.semantic_release]`
 - Génération du CHANGELOG : Grâce  automatiquement soit une description entre deux commits
-- Création des releases GitHub : `build(release): bump version to 1.0.0` 
+- Création des releases GitHub : `build(release): bump version to 1.0.0`
 
 
 ## Mission 4 : Comparatif d'outils :
@@ -100,7 +100,7 @@ pytest pour la productivité et la flexibilité.
 - Safety : détecte les vulnérabilités dans les dépendances Python uniquement.
 - Snyk : solution commerciale très complète (code, dépendances, containers).
 - Trivy : excellent pour l’analyse de containers et infrastructures.
-Open source : Bandit + Safety  
+Open source : Bandit + Safety
 
 ---
 

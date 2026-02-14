@@ -1,13 +1,13 @@
-# Prédiction de la Gravité des Accidents de la Route 
+# Prédiction de la Gravité des Accidents de la Route
 
 **Projet Machine Learning • Durée : 1 semaine (5 jours)**
 
-## Description du projet 
+## Description du projet
 Ce projet vise à prédire la gravité d'un accident (ex. : matériel, blessés légers, blessés graves, mortel) à partir des caractéristiques de l'accident (lieu, heure, conditions météo, type de route, profil des usagers). Le pipeline inclut le nettoyage des données, l'entraînement d'un modèle (CatBoost), une API FastAPI pour servir les prédictions et une interface Streamlit pour l'interaction utilisateur.
 
 ---
 
-## Prérequis 
+## Prérequis
 - Docker (>=20.x)
 - Docker Compose (>=1.29 ou v2)
 - Python 3.10+ (pour exécution locale sans Docker)
@@ -15,7 +15,7 @@ Ce projet vise à prédire la gravité d'un accident (ex. : matériel, blessés 
 
 ---
 
-## Installation & déploiement (Docker) 
+## Installation & déploiement (Docker)
 1. Cloner le dépôt :
    ```bash
    git clone <votre-repo.git>
@@ -39,14 +39,14 @@ Ce projet vise à prédire la gravité d'un accident (ex. : matériel, blessés 
 
 ---
 
-## Lien vers l'image DockerHub 
+## Lien vers l'image DockerHub
 - Image (exemple) : `dockerhub_username/tp_ml_voiture:latest`
 
 Remplacez par le lien réel de votre image DockerHub si vous publiez une image : `docker pull dockerhub_username/tp_ml_voiture:TAG`.
 
 ---
 
-## Commandes utiles 
+## Commandes utiles
 - Lancer en local (avec Docker Compose) :
   ```bash
   docker-compose up --build -d

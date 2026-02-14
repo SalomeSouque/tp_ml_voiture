@@ -17,12 +17,11 @@ jobs:
         uses: actions/checkout@v4
 
       # TODO: Installer uv
-      # Indice : https://docs.astral.sh/uv/guides/integration/github/
-      - name: Install uv
-        run: |
-          curl -sSL https://install.astral.sh | bash
-          echo 'export PATH="$HOME/.uv/bin:$PATH"' >> $GITHUB_ENV
-          uv --version
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v4
+        with:
+          enable-cache: true
+          cache-dependency-glob: "uv.lock"
 
       # TODO: Installer les dépendances
       - name: Install dependencies
@@ -41,14 +40,18 @@ jobs:
     name: Type Check
     runs-on: ubuntu-latest
     steps:
-      # Checkout + uv + dependencies
+      # Checkout 
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Install uv
-        run: |
-          curl -sSL https://install.astral.sh | bash
-          echo 'export PATH="$HOME/.uv/bin:$PATH"' >> $GITHUB_ENV
-          uv --version
+
+      # TODO: Installer uv
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v4
+        with:
+          enable-cache: true
+          cache-dependency-glob: "uv.lock"
+
+      # Installer les dépendances
       - name: Install dependencies
         run: uv sync
 
@@ -61,16 +64,21 @@ jobs:
     name: Security Scan
     runs-on: ubuntu-latest
     steps:
-      # Checkout + uv + dependencies
+      # Checkout 
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Install uv
-        run: |
-          curl -sSL https://install.astral.sh | bash
-          echo 'export PATH="$HOME/.uv/bin:$PATH"' >> $GITHUB_ENV
-          uv --version
+
+      # TODO: Installer uv
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v4
+        with:
+          enable-cache: true
+          cache-dependency-glob: "uv.lock"
+
+      # Installer les dépendances
       - name: Install dependencies
         run: uv sync
+
 
       # TODO: Bandit (static analysis)
       - name: Run Bandit
@@ -102,16 +110,21 @@ jobs:
           - 5432:5432
 
     steps:
-      # Checkout + uv + dependencies
+      # Checkout 
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Install uv
-        run: |
-          curl -sSL https://install.astral.sh | bash
-          echo 'export PATH="$HOME/.uv/bin:$PATH"' >> $GITHUB_ENV
-          uv --version
+
+      # TODO: Installer uv
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v4
+        with:
+          enable-cache: true
+          cache-dependency-glob: "uv.lock"
+          
+      # Installer les dépendances
       - name: Install dependencies
         run: uv sync
+
 
       # TODO: Run tests with coverage
       - name: Run tests

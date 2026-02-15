@@ -37,7 +37,6 @@ jobs:
           file: ./backend/Dockerfile
           push: true
           tags: |
-            tags: |
               ghcr.io/salomesouque/tp_ml_voiture-backend:develop
               ghcr.io/salomesouque/tp_ml_voiture-backend:${{ github.sha }}
 

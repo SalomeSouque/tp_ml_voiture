@@ -34,6 +34,7 @@ def get_db():
 # engine =  create_engine("
 # postgresql+psycopg2://dbeaver:root@localhost:5432/logging_accident")
 # Session = sessionmaker(bind=engine)
+# ensuite
 
 
 # Helper to wait for DB to be ready instead of connecting at import time

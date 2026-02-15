@@ -1,0 +1,44 @@
+services:
+  api:
+    image: ghcr.io/salomesouque/tp_ml_voiture-backend:ad321665ae15a400a6f9b758579c598884ed6642
+    container_name : model_call
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+        POSTGRES_USER: dbeaver
+        POSTGRES_PASSWORD: root
+        POSTGRES_DB: logging_accident
+        POSTGRES_HOST: db
+        POSTGRES_PORT: 5432
+
+  frontend:
+    image: ghcr.io/salomesouque/tp_ml_voiture-frontend:ad321665ae15a400a6f9b758579c598884ed6642
+    container_name: predict_front
+    ports:
+      - "8501:8501"
+    environment:
+      API_URL: http://api:8000
+    depends_on:
+      - api
+
+  db:
+    image: postgres:16
+    container_name: my-postgres
+    environment:
+      POSTGRES_USER: dbeaver
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: logging_accident
+    ports:
+      - "5000:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U dbeaver -d logging_accident"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  pgdata:

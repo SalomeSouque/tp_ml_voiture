@@ -5,3 +5,5 @@ anaconda_projects/
 catboost_info/
 data/
 !data/df_accident_final.csv
+__pycache__/
+*.py[cod]

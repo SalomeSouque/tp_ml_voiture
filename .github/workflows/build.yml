@@ -37,8 +37,9 @@ jobs:
           file: ./backend/Dockerfile
           push: true
           tags: |
-            ghcr.io/${{ github.repository }}-backend:develop
-            ghcr.io/${{ github.repository }}-backend:${{ github.sha }}
+            tags: |
+              ghcr.io/salomesouque/tp_ml_voiture-backend:develop
+              ghcr.io/salomesouque/tp_ml_voiture-backend:${{ github.sha }}
 
   build-frontend:
     runs-on: ubuntu-latest

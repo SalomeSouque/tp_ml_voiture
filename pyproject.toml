@@ -33,6 +33,10 @@ version_toml = ["pyproject.toml:project.version"]
 branch = "main"
 upload_to_pypi = false
 upload_to_repository = false
+commit = false
+tag = true
+push = true
+changelog = true
 
 [tool.semantic_release.branches.main]
 match = "main"

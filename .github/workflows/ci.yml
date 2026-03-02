@@ -53,7 +53,7 @@ jobs:
       - name: Install security tools
         run: pip install bandit safety
       - name: Run bandit
-        run: bandit -r app/
+        run: bandit -r backend/
       - name: Run safety
         run: safety check
 

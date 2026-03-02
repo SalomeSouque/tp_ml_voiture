@@ -106,15 +106,17 @@ if st.button("Prédire la gravité"):
         proba = result["probability"]
 
         if pred == 0:
-            st.success(
-                f"Prédiction : Blessure légère (probabilité {
-                    proba['blessure_legere']:.2f})"
+            msg = (
+                f"Prédiction : Blessure légère "
+                f"(probabilité {proba['blessure_legere']:.2f})"
             )
+            st.success(msg)
         else:
-            st.error(
-                f"Prédiction : Accident grave (probabilité {
-                    proba['accident_grave']:.2f})"
+            msg = (
+                f"Prédiction : Accident grave "
+                f"(probabilité {proba['accident_grave']:.2f})"
             )
+            st.error(msg)
 
     except requests.exceptions.HTTPError as err:
         # Le module request gère les erreur http

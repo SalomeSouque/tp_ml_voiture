@@ -1,6 +1,4 @@
 sqlmodel
-typing
-datetime
 fastapi
 pandas
 joblib

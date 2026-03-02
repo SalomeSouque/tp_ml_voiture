@@ -1,0 +1,43 @@
+[tool.ruff]
+line-length = 88
+exclude = ["notebook/*"]
+
+[tool.ruff.lint]
+select = ["E", "W", "F", "I", "B", "C4", "UP"]
+ignore = []
+
+[tool.ruff.lint.per-file-ignores]
+"backend/routes/predict_route.py" = ["B008"]
+"frontend/app.py" = ["W291"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+[tool.mypy]
+python_version = "3.13"
+warn_return_any = true
+warn_unused_configs = true
+ignore_missing_imports = true
+disallow_untyped_defs = false
+plugins = []
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*"]
+python_functions = ["test_*"]
+addopts = "--strict-markers --cov=backend --cov-report=term-missing"
+
+[tool.semantic_release]
+version_toml = ["pyproject.toml:project.version"]
+branch = "main"
+upload_to_pypi = false
+upload_to_repository = false
+
+[tool.semantic_release.branches.main]
+match = "main"
+prerelease = false
+
+[tool.semantic_release.branches.develop]
+match = "develop"
+prerelease = true

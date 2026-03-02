@@ -1,9 +1,10 @@
-from sqlmodel import Field, SQLModel
+from sqlmodel import SQLModel
 
 
 # Utilisation de pydantic et des class comme vu en alternance :
-# Je crée une class avec basemodel en paramètre, qui me permet de créer un modèle ou un schéma à suivre de mes données avec leur attirbut
-# Gestion des erreurs facilité grace a pydantic entre autre avantage 
+# Je crée une class avec basemodel en paramètre, qui me permet
+# de créer un modèle ou un schéma à suivre de mes données avec leur attirbut
+# Gestion des erreurs facilité grace a pydantic entre autre avantage
 class Accident(SQLModel):
     nb_usagers: int
     age_moyen: float
@@ -20,5 +21,3 @@ class Accident(SQLModel):
     atm: int
     catr: int
     surf: int
-
-

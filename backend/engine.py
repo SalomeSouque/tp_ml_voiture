@@ -1,9 +1,7 @@
-from sqlmodel import Session, create_engine, text
-
 import os
 import time
 
-
+from sqlmodel import Session, create_engine
 
 # Configuration via variables d'environnement
 POSTGRES_USER = os.getenv("POSTGRES_USER", "dbeaver")
@@ -19,10 +17,13 @@ DATABASE_URL = (
 )
 
 # En local :
-#engine = create_engine("postgresql+psycopg2://dbeaver:root@localhost:5432/logging_accident", echo=True)
+# engine = create_engine(
+# "postgresql+psycopg2://dbeaver:root@localhost:5432/logging_accident",
+#  echo=True)
 
 # Avec docker :
 engine = create_engine(DATABASE_URL, echo=True)
+
 
 def get_db():
     with Session(engine) as session:
@@ -30,8 +31,10 @@ def get_db():
 
 
 # En local :
-#engine =  create_engine("postgresql+psycopg2://dbeaver:root@localhost:5432/logging_accident")
+# engine =  create_engine("
+# postgresql+psycopg2://dbeaver:root@localhost:5432/logging_accident")
 # Session = sessionmaker(bind=engine)
+# ensuite
 
 
 # Helper to wait for DB to be ready instead of connecting at import time
@@ -42,10 +45,11 @@ def wait_for_db(retries: int = 10, delay: float = 1.0):
     """
     for attempt in range(1, retries + 1):
         try:
-            with engine.connect() as conn:
+            with engine.connect():
                 return True
-        except Exception:
+        except Exception as err:
             if attempt == retries:
-                raise RuntimeError("Could not connect to the database after multiple attempts")
+                raise RuntimeError(
+                    "Could not connect to the database after multiple attempts"
+                ) from err
             time.sleep(delay)
-

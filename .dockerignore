@@ -1,0 +1,42 @@
+# Git
+.git
+.gitignore
+
+# Python
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info
+dist/
+build/
+
+# Environnements virtuels
+.venv
+venv/
+env/
+
+# Notebooks
+notebook/
+*.ipynb
+
+# Tests
+tests/
+.pytest_cache/
+.coverage
+
+# Variables d'environnement
+.env
+
+# Docker
+docker-compose*.yml
+Dockerfile*
+
+# Docs
+docs/
+mkdocs.yml
+
+# IDE
+.vscode/
+.idea/

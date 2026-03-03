@@ -2,6 +2,7 @@ from contextlib import asynccontextmanager
 
 from engine import engine
 from fastapi import FastAPI
+from prometheus_fastapi_instrumentator import Instrumentator
 from routes.predict_route import router
 from sqlmodel import SQLModel
 
@@ -22,6 +23,10 @@ async def lifespan(fastapi_app: FastAPI):
 
 app = FastAPI(title="API Prédiction Gravité Accident", lifespan=lifespan)
 app.include_router(router)
+
+# - instrument(app) =  observe toutes les requêtes HTTP automatiquement
+# - expose(app) = crée l'endpoint GET /metrics que Prometheus va scraper
+Instrumentator().instrument(app).expose(app)
 
 
 # Endpoint

@@ -110,6 +110,21 @@ services:
       - app-network
     restart: unless-stopped
 
+    # SERVICE LOCUST — Générateur de charge
+  locust:
+    image: locustio/locust:latest
+    container_name: locust
+    ports:
+      - "8089:8089"
+    volumes:
+      - ./locustfile.py:/mnt/locust/locustfile.py
+    command: -f /mnt/locust/locustfile.py --host http://model_call:8000
+    networks:
+      - app-network
+    depends_on:
+      - api
+    restart: unless-stopped
+
 
 volumes:
   pgdata:

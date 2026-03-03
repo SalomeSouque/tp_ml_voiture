@@ -19,6 +19,8 @@ Ce fichier décrit l'architecture générale du projet de prédiction d'accident
 
 - `notebook/` : Carnets Jupyter pour exploration et nettoyage (`data_clean.ipynb`).
 
+- `locustfile.py` : Scénarios de charge destinés à l'outil Locust, avec deux profils (`PredictUser` et `HealthCheckUser`).
+
 - `tests/` : Contient les tests unitaires (`test_placeholder.py`).
 
 - `catboost_info/` : Informations et sorties d'entraînement du modèle CatBoost.
@@ -37,5 +39,6 @@ Ce fichier décrit l'architecture générale du projet de prédiction d'accident
 3. **API** : `backend` expose des endpoints pour demander des prédictions.
 4. **Service** : `prediction_service` gère la logique de chargement du modèle et génération des prédictions.
 5. **Frontend** : Une interface utilisateur en `frontend/app.py` pour interagir avec l'API.
+6. **Performance** : `locustfile.py` simule des utilisateurs faisant des requêtes de prédiction et un monitoring périodique.
 
 Ce schéma permet de séparer clairement la logique de modèle, l'API et l'interface utilisateur, facilitant les tests et le déploiement.

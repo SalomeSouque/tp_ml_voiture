@@ -36,7 +36,9 @@ upload_to_repository = false
 commit = false
 tag = true
 push = true
-changelog = true
+
+[tool.semantic_release.changelog]
+generate = true
 
 [tool.semantic_release.branches.main]
 match = "main"

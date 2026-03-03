@@ -5,6 +5,8 @@ joblib
 psycopg2-binary
 uvicorn[standard]
 scikit-learn
+prometheus-client
+prometheus-fastapi-instrumentator
 
 
 

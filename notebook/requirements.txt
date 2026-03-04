@@ -1,0 +1,9 @@
+# Pour reproduire l'EDA :
+catboost
+scikit-learn
+pandas
+joblib
+matplotlib
+seaborn
+missingno
+ipykernel

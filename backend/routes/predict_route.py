@@ -71,7 +71,7 @@ def predict(
     predictions_total.inc()
 
     try:
-        data = pd.DataFrame([accident.dict()])
+        data = pd.DataFrame([accident.model_dump()])
         # Convertion en df
 
         categorical_cols = ["catr", "surf"]

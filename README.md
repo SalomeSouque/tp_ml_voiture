@@ -210,11 +210,11 @@ Les images sont disponibles sur DockerHub et se téléchargent automatiquement a
 
 | Image | Lien |
 |-------|------|
-| **API FastAPI** | [`salomesouque/tp-ml-voiture-api`](https://hub.docker.com/r/salomesouque/tp-ml-voiture-api) |
-| **Frontend Streamlit** | [`salomesouque/tp-ml-voiture-front`](https://hub.docker.com/r/salomesouque/tp-ml-voiture-front) |
+| **API FastAPI** | [`salxmesk/tp-ml-voiture-api`](https://hub.docker.com/r/salxmesk/tp-ml-voiture-api) |
+| **Frontend Streamlit** | [`salxmesk/tp-ml-voiture-front`](https://hub.docker.com/r/salxmesk/tp-ml-voiture-front) |
 ```bash
-docker pull salomesouque/tp-ml-voiture-api:latest
-docker pull salomesouque/tp-ml-voiture-front:latest
+docker pull salxmesk/tp-ml-voiture-api:latest
+docker pull salxmesk/tp-ml-voiture-front:latest
 ```
 
 | Tag | Description |

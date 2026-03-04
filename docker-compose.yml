@@ -1,6 +1,7 @@
 services:
   api:
-    build: ./backend
+    # build: ./backend  <- si image DockerHub indisponible, décommenter et builder localement.
+    image: salxmesk/tp-ml-voiture-api:latest
     container_name : model_call
     ports:
       - "8000:8000"
@@ -13,7 +14,8 @@ services:
       - app-network
 
   frontend:
-    build: ./frontend
+    # build: ./frontend <- si image DockerHub indisponible, décommenter et builder localement.
+    image: salxmesk/tp-ml-voiture-front:latest
     container_name: predict_front
     ports:
       - "8501:8501"

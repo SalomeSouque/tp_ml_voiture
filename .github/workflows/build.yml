@@ -67,5 +67,5 @@ jobs:
           file: ./frontend/Dockerfile
           push: true
           tags: |
-            ghcr.io/salomesouque/tp_ml_voiture-frontend:develop
-            ghcr.io/salomesouque/tp_ml_voiture-frontend:${{ github.sha }}
+            ghcr.io/salomesouque/tp_ml_voiture-backend:${{ github.ref_name == 'main' && 'latest' || 'develop' }}
+            ghcr.io/salomesouque/tp_ml_voiture-backend:${{ github.sha }}

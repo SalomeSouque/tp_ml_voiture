@@ -1,7 +1,10 @@
+# Qualité de code
 ruff
 mypy
-pytest
-pytest-cov
 bandit
 safety
-psycopg2-binary
+
+# Tests
+pytest
+pytest-cov
+httpx

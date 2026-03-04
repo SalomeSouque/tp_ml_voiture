@@ -1,10 +1,2 @@
 streamlit
 requests
-
-
-# Pour les notebook :
-# matplotlib>=3.5.0
-# numpy>=1.23.0
-# scikit-learn>=1.1.0
-# seaborn>=0.12.0
-# catboost>=1.1
